@@ -53,12 +53,12 @@ body {
            user-select: none;
 }
 
-a:link {
-  color: #20C20E;
-}
-
 a:active, a:visited {
   color: #12B58C;
+}
+
+a:link {
+  color: #20C20E;
 }
 
 a:hover {
