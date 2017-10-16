@@ -1,3 +1,5 @@
+/* global requestAnimFrame */
+/* global elation */
 /**
  * AnderShell - Just a small CSS demo
  *
@@ -40,31 +42,43 @@
 
   var _filetree = {
     'documents': {type: 'dir', files: {
-      'example1': {type: 'file', mime: 'text/plain', content: "This is just an example file"},
-      'example2': {type: 'file', mime: 'text/plain', content: "This is just an example file. What did you think it was?"},
-      'example3': {type: 'file', mime: 'text/plain', content: "This is just an example file. I'm super cereal!"},
-      'example4': {type: 'file', mime: 'text/plain', content: "This is just an example file. Such wow!"},
-      'example5': {type: 'file', mime: 'text/plain', content: "This is just an example file. Jelly much?"}
+      'README' : {type: 'file', mime: 'text/plain', content: 'All you see here is CSS. No images were used or harmed in creation of this demo'},
+      'LICENSE': {type: 'file', mime: 'text/plain', content: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."}
     }},
     'storage':   {type: 'dir', files: {
+      'allfiles.txt': {type: 'symlink', mime:'inode/simlink', destination: "http://www.textfiles.com/bbs/FILELISTS/allfile1.txt"}
     }},
-    'AUTHORS': {type: 'file', mime: 'text/plain', content: "Created by Anders Evenrud <andersevenrud@gmail.com>\n\nThis is a demo using CSS only for graphics (no images), and JavaScript for a basic command line"},
-    'README' : {type: 'file', mime: 'text/plain', content: 'All you see here is CSS. No images were used or harmed in creation of this demo'},
-    'LICENSE': {type: 'file', mime: 'text/plain', content: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."}
+    'MOTD': {type: 'file', mime: 'text/plain', content: "Vintage Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful milestones in the evolution of computers, internet, and how people use them. The collection was assembled by DMS member @denzuko as a way to offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole that harkens back to the days of Community Memory."}
   };
-
+  
+  var _finger = [
+    { 'key': 'username', 'value': "vintagecomputercommitee@dms" },
+    { 'key': 'Name', 'value': 'Vintage Computer Committee Dallas Makerspace' },
+    { 'key': 'Email', 'value': 'denzuko@dallasmakerspace.org', 'proto': 'mailto:' },
+    { 'key': 'Articles', 'value': 'hackaday.io/DMSVintageComputers', 'proto': 'https://' },
+    { 'key': 'Github',   'value': 'github.com/Dallas-Makerspace/', 'proto': 'https://' },
+    { 'key': 'YouTube',  'value': 'youtube.com/channel/UCp3dIM6FyevEUYbF1EFnzmA', 'proto': 'https://' },
+    { 'key': 'Google+',  'value': 'plus.google.com/100248581855785476356?rel=author', 'proto': 'https://'},
+    { 'key': 'Patreon', 'value': 'patreon.com/DMSVintageComputers', 'proto': 'https://' }
+  ];
+  
+  var contextClass = (window.AudioContext || 
+    window.webkitAudioContext || 
+    window.mozAudioContext || 
+    window.oAudioContext || 
+    window.msAudioContext);
+  
   var _commands = {
 
     sound: function(volume, duration, freq) {
-      if ( !window.webkitAudioContext ) {
+      if (!contextClass)
         return ['Your browser does not support this feature :('];
-      }
 
       volume = ((volume || '').replace(/[^0-9]/g, '') << 0) || 100;
       duration = ((duration || '').replace(/[^0-9]/g, '') << 0) || 1;
       freq = ((freq || '').replace(/[^0-9]/g, '') << 0) || 1000;
 
-      var context = new webkitAudioContext();
+      var context = new contextClass();
       var osc = context.createOscillator();
       var vol = context.createGainNode();
 
@@ -87,6 +101,20 @@
         'Frequenzy: ' + freq
       ]).join("\n");
     },
+    
+    readlink: function(file) {
+     if (!file)  return(["You need to supply argument: filename"]).join("\n");
+     
+     var filename = parsepath(file);
+     var iter     = getiter(filename);
+     
+     if (!iter) return(["File not found: " + filename]).join("\n");
+     
+     if (iter.type !== "symlink") return(["Invalid symlink: " + filename]).join("\n");
+     
+     return _openAjax(iter.destination, "GET");
+     
+    },
 
     ls: function(dir) {
       dir = parsepath((dir || _cwd));
@@ -102,8 +130,10 @@
       for ( var i in tree ) {
         if ( tree.hasOwnProperty(i) ) {
           p = tree[i];
-          if ( p.type == 'dir' ) {
-            out.push(format('{0} {1} {2}', padRight('<'+i+'>', 20), padRight(p.type, 20), '0'));
+          if ( p.type === 'dir' ) {
+            out.push(format('{0} {1} {2}', padRight('<'+i+'>', 20), padRight(p.type, 20), '4096'));
+          } else if ( p.type === 'symlink' ) {
+            out.push(format('{0} {1} {2}', padRight('<'+i+'>', 20), padRight(p.type, 20), '9'));
           } else {
             out.push(format('{0} {1} {2}', padRight(i, 20), padRight(p.mime, 20), p.content.length));
             total += p.content.length;
@@ -138,15 +168,17 @@
       }
 
       var filename = parsepath(file);
-      var iter = getiter(filename);
+      var iter =getiter(filename);
       if ( !iter ) {
         return (["File not found: " + filename]).join("\n");
       }
 
+      if (iter.type === "symlink") return _commands.readlink(iter.destination);
+
       return iter.content;
     },
 
-    cwd: function() {
+    pwd: function() {
       return (['Current directory: ' + _cwd]).join("\n");
     },
 
@@ -154,65 +186,89 @@
       return false;
     },
 
-    contact: function(key) {
-      key = key || '';
-      var out = [];
-
-      switch ( key.toLowerCase() ) {
-        case 'email' :
-          window.open('mailto:andersevenrud@gmail.com');
-          break;
-        case 'github' :
-          window.open('https://github.com/andersevenrud/');
-          break;
-        case 'linkedin' :
-          window.open('http://www.linkedin.com/in/andersevenrud');
-          break;
-        case 'youtube' :
-          window.open('https://www.youtube.com/user/andersevenrud');
-          break;
-        case 'worpress' :
-          window.open('http://anderse.wordpress.com/');
-          break;
-        case 'twitter' :
-          window.open('https://twitter.com/#!/andersevenrud');
-          break;
-        case 'google+' :
-          window.open('https://profiles.google.com/101576798387217383063?rel=author');
-          break;
-
-        default :
-          if ( key.length ) {
-            out = ['Invalid key: ' + key];
-          } else {
-            out = [
-              "Contact information:\n",
-              'Name:      Anders Evenrud',
-              'Email:     andersevenrud@gmail.com',
-              'Github:    https://github.com/andersevenrud/',
-              'LinkedIn:  http://www.linkedin.com/in/andersevenrud',
-              'YouTube:   https://www.youtube.com/user/andersevenrud',
-              'Wordpress: http://anderse.wordpress.com/',
-              'Twitter:   https://twitter.com/#!/andersevenrud',
-              'Google+:   https://profiles.google.com/101576798387217383063?rel=author'
-            ];
-          }
-          break;
+    contact: function(lookup = '') {
+      var contact;
+     
+      if (lookup === '') { // default behavor : print to screen (todo: turn this into finger function)
+        var out = [
+          "Finger "+ _finger.find(function(el){return el.key === "username";}).value + ":\n"
+        ];
+        
+        _finger.forEach(function(el) {
+          if (el.key === "username") return;
+          out.push(el.key+":        "+el.value);
+        });
+        
+        return out.join("\n");
+        
       }
-
-      return out.join("\n");
+     
+      // reduce to lookup 
+      contact = _finger.find(function(el){
+        return lookup.toLowerCase() === el.key.toLowerCase();
+      });
+      
+      if (contact === undefined) {
+        return ['Invalid key: ' + lookup].join("\n");
+      } else if (!contact.hasOwnProperty("proto")) {
+        return [contact.value].join("\n");
+      }
+      
+      var link     = document.createElement('a');
+      document.body.appendChild(link);
+     
+      link.href = contact.proto + contact.value;
+      link.target="_blank";
+      link.click();
+      link.remove();
+    },
+    
+    xmodem: function(file) {
+     if (!file)  return(["You need to supply argument: filename"]).join("\n");
+     
+     var filename = parsepath(file);
+     var iter     = getiter(filename);
+     var link     = document.createElement('a');
+     
+     if (!iter) return(["File not found: " + filename]).join("\n");
+     
+     if (iter.type !== "symlink") return(["Permission denied, access level invalid: " + filename]).join("\n");
+     
+     document.body.appendChild(link);
+     
+     link.href=iter.destination;
+     link.target="_blank";
+     link.click();
+     link.remove();
+    },
+    
+    login: function() {
+      if (window.elation) {
+        elation.janusweb.init({
+          url: document.location.href,
+           showchat: false,
+           shownavigation: false 
+        }).then(function(client) {
+          document.getElementById("outer").setAttribute("hidden", true);
+          elation.events.add(client.janusweb.currentroom, 'room_load_complete', function() {
+            //client.hideMenu();
+          });
+        });
+      }
     },
 
     help: function() {
       var out = [
         'help                                         This command',
         'contact                                      How to contact author',
-        'contact <key>                                  Open page (example: `email` or `google+`)',
+        'contact <key>                                Open page (example: `email` or `google+`)',
         'clear                                        Clears the screen',
         'ls                                           List current (or given) directory contents',
         'cd <dir>                                     Enter directory',
         'cat <filename>                               Show file contents',
         'sound [<volume 0-100>, <duration>, <freq>]   Generate a sound (WebKit only)',
+        'xmodem <filename>                            File transfer tool',
+        'login                                        Jack into the matrix',
         ''
       ];
 
@@ -224,6 +280,19 @@
   /////////////////////////////////////////////////////////////////
   // UTILS
   /////////////////////////////////////////////////////////////////
+
+  function _openAjax(url, method = "GET") {
+    var myRequest = new XMLHttpRequest(),
+        myResponse = "";
+    
+    myRequest.open(method, url);
+
+    myRequest.onreadystatechange = function () {
+      if (myRequest.readyState === 4) myResponse = myRequest.responseText;
+    };
+    
+    return myResponse;
+  }
 
   function setSelectionRange(input, selectionStart, selectionEnd) {
     if (input.setSelectionRange) {
@@ -252,7 +321,7 @@
 
 
   function padRight(str, l, c) {
-    return str+Array(l-str.length+1).join(c||" ")
+    return str+Array(l-str.length+1).join(c||" ");
   }
 
   function padCenter(str, width, padding) {
@@ -265,13 +334,14 @@
     if ( str.length < width ) {
       var len     = width - str.length;
       var remain  = ( len % 2 == 0 ) ? "" : padding;
-      var pads    = _repeat(padding, parseInt(len / 2));
+      var pads    = _repeat(padding, parseInt(len / 2, 10));
       return pads + str + pads + remain;
     }
 
     return str;
   }
 
+  //FIXME: do not parse iter.destination
   function parsepath(p) {
     var dir = (p.match(/^\//) ? p : (_cwd  + '/' + p)).replace(/\/+/g, '/');
     return realpath(dir) || '/';
@@ -296,8 +366,8 @@
     return iter;
   }
 
-  function realpath(path) {
-    var parts = path.split(/\//);
+  function realpath(fs_path) {
+    var parts = fs_path.split(/\//);
     var path = [];
     for ( var i in parts ) {
       if ( parts.hasOwnProperty(i) ) {
@@ -497,8 +567,8 @@
       update();
     };
 
-    print("Initializing AnderShell 3000 v0.1 ....................................................\n");
-    print("Copyright (c) 2014 Anders Evenrud <andersevenrud@gmail.com>\n\n", true);
+    print("Initializing VCC Grid OS 1.0 ....................................................\n");
+    print("Copyright (c) 2017 Vintage Computer Committee, Some Rights Reserved.\n\n", true);
 
     //print("------------------------------------------------------------------------------------------------------------------");
     print("                  @@@  @@@  @@@  @@@@@@@@  @@@        @@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@                  \n", true);

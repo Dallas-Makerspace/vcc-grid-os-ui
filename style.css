@@ -53,6 +53,18 @@ body {
            user-select: none;
 }
 
+a:link {
+  color: #20C20E;
+}
+
+a:active, a:visited {
+  color: #12B58C;
+}
+
+a:hover {
+  color: #C14D05;
+}
+
 #ga {
   position : absolute;
   bottom : 5px;
@@ -251,10 +263,6 @@ body {
   transform-origin : 50% 50%;
   transform: perspective(200px) rotateX(.5deg) skewX(2deg) scale(1.03);
 
-  -webkit-animation: glitch 1s linear infinite;
-     -moz-animation: glitch 1s linear infinite;
-      -ms-animation: glitch 1s linear infinite;
-          animation: glitch 1s linear infinite;
 
   opacity : .9;
 }
@@ -306,10 +314,10 @@ body {
     -webkit-transform-origin : 50% 50%;
     -webkit-transform: perspective(1000px) skewX(3deg);
 
-    -webkit-animation: vline 1.25s linear infinite;
-       -moz-animation: vline 1.25s linear infinite;
-        -ms-animation: vline 1.25s linear infinite;
-            animation: vline 1.25s linear infinite;
+    -webkit-animation: vline 4.5s linear infinite;
+       -moz-animation: vline 4.5s linear infinite;
+        -ms-animation: vline 4.5s linear infinite;
+            animation: vline 4.5s linear infinite;
   }
   #overlay:after {
     content : '';
@@ -363,10 +371,6 @@ body {
   -moz-transform-origin : 50% 50%;
   -moz-transform: perspective(200px) skewX(.5deg);
 
-  -webkit-animation: shifter 5s linear infinite;
-     -moz-animation: shifter 5s linear infinite;
-      -ms-animation: shifter 5s linear infinite;
-          animation: shifter 5s linear infinite;
 }
   #output:after {
     content : '';
