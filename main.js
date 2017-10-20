@@ -151,11 +151,11 @@
     },
 
     cd: function(dir) {
-      if ( !dir ) {
-        return (["You need to supply argument: dir"]).join("\n");
-      }
+     // if ( !dir ) {
+     //   return (["You need to supply argument: dir"]).join("\n");
+     // }
 
-      var dirname = parsepath(dir);
+      var dirname = parsepath(dir || '/');
       var iter = getiter(dirname);
       if ( dirname == '/' || (iter && iter.type == 'dir')) {
         _cwd = dirname;
