@@ -1,5 +1,6 @@
 /* global requestAnimFrame */
 /* global elation */
+/* global Mousetrap */
 /**
  * AnderShell - Just a small CSS demo
  *
@@ -43,12 +44,14 @@
   var _filetree = {
     'documents': {type: 'dir', files: {
       'README' : {type: 'file', mime: 'text/plain', content: 'All you see here is CSS. No images were used or harmed in creation of this demo'},
-      'LICENSE': {type: 'file', mime: 'text/plain', content: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."}
+      'LICENSE': {type: 'file', mime: 'text/plain', content: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."},
+      'allfiles.txt': {type: 'symlink', mime:'inode/simlink', destination: "http://www.textfiles.com/bbs/FILELISTS/allfile1.txt"},
     }},
-    'storage':   {type: 'dir', files: {
-      'allfiles.txt': {type: 'symlink', mime:'inode/simlink', destination: "http://www.textfiles.com/bbs/FILELISTS/allfile1.txt"}
+    'releases':   {type: 'dir', files: {
+      'Amiga-Hardware.webm': {type: 'symlink', mime: 'inode/simplink', destination: 'https://archive.org/download/youtube-BbVAvDbzXFk/The_Ultimate_Amiga_500_Talk_32c3-BbVAvDbzXFk.webm'},
     }},
-    'MOTD': {type: 'file', mime: 'text/plain', content: "Vintage Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful milestones in the evolution of computers, internet, and how people use them. The collection was assembled by DMS member @denzuko as a way to offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole that harkens back to the days of Community Memory."}
+    'MOTD': {type: 'file', mime: 'text/plain', content: "Vintage Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful             milestones in the evolution of computers, internet, and how people use them. The collection was assembled as a way to            offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole           that harkens back to the days of Community Memory."},
+    'GPGKEY': {type: 'symlink', mime: 'inode/simplink', destination: 'https://keybase.io/denzuko/pgp_keys.asc?fingerprint=e9bf4915a4ceacb4f72ae65ae704b37bc7fbf426'},
   };
   
   var _finger = [
@@ -133,7 +136,7 @@
           if ( p.type === 'dir' ) {
             out.push(format('{0} {1} {2}', padRight('<'+i+'>', 20), padRight(p.type, 20), '4096'));
           } else if ( p.type === 'symlink' ) {
-            out.push(format('{0} {1} {2}', padRight('<'+i+'>', 20), padRight(p.type, 20), '9'));
+            out.push(format('{0} {1} {2}', padRight(i, 20), padRight(p.type, 20), '9'));
           } else {
             out.push(format('{0} {1} {2}', padRight(i, 20), padRight(p.mime, 20), p.content.length));
             total += p.content.length;
@@ -175,7 +178,7 @@
 
       if (iter.type === "symlink") return _commands.readlink(iter.destination);
 
-      return iter.content;
+      return iter.content.match(/.{1,129}/g).join('\n');
     },
 
     pwd: function() {
@@ -569,21 +572,24 @@
 
     print("Initializing VCC Grid OS 1.0 ....................................................\n");
     print("Copyright (c) 2017 Vintage Computer Committee, Some Rights Reserved.\n\n", true);
-
-    //print("------------------------------------------------------------------------------------------------------------------");
-    print("                  @@@  @@@  @@@  @@@@@@@@  @@@        @@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@                  \n", true);
-    print("                  @@@  @@@  @@@  @@@@@@@@  @@@       @@@@@@@@  @@@@@@@@  @@@@@@@@@@@  @@@@@@@@                  \n", true);
-    print("                  @@!  @@!  @@!  @@!       @@!       !@@       @@!  @@@  @@! @@! @@!  @@!                       \n", true);
-    print("                  !@!  !@!  !@!  !@!       !@!       !@!       !@!  @!@  !@! !@! !@!  !@!                       \n", true);
-    print("                  @!!  !!@  @!@  @!!!:!    @!!       !@!       @!@  !@!  @!! !!@ @!@  @!!!:!                    \n", true);
-    print("                  !@!  !!!  !@!  !!!!!:    !!!       !!!       !@!  !!!  !@!   ! !@!  !!!!!:                    \n", true);
-    print("                  !!:  !!:  !!:  !!:       !!:       :!!       !!:  !!!  !!:     !!:  !!:                       \n", true);
-    print("                  :!:  :!:  :!:  :!:        :!:      :!:       :!:  !:!  :!:     :!:  :!:                       \n", true);
-    print("                   :::: :: :::    :: ::::   :: ::::   ::: :::  ::::: ::  :::     ::    :: ::::                  \n", true);
-    print("                    :: :  : :    : :: ::   : :: : :   :: :: :   : :  :    :      :    : :: ::                   \n", true);
+    
+    var lines = [
+      "                  @@@  @@@  @@@  @@@@@@@@  @@@        @@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@                  ",
+      "                  @@@  @@@  @@@  @@@@@@@@  @@@       @@@@@@@@  @@@@@@@@  @@@@@@@@@@@  @@@@@@@@                  ",
+      "                  @@!  @@!  @@!  @@!       @@!       !@@       @@!  @@@  @@! @@! @@!  @@!                       ",
+      "                  !@!  !@!  !@!  !@!       !@!       !@!       !@!  @!@  !@! !@! !@!  !@!                       ",
+      "                  @!!  !!@  @!@  @!!!:!    @!!       !@!       @!@  !@!  @!! !!@ @!@  @!!!:!                    ",
+      "                  !@!  !!!  !@!  !!!!!:    !!!       !!!       !@!  !!!  !@!   ! !@!  !!!!!:                    ",
+      "                  !!:  !!:  !!:  !!:       !!:       :!!       !!:  !!!  !!:     !!:  !!:                       ",
+      "                  :!:  :!:  :!:  :!:        :!:      :!:       :!:  !:!  :!:     :!:  :!:                       ",
+      "                   :::: :: :::    :: ::::   :: ::::   ::: :::  ::::: ::  :::     ::    :: ::::                  ",
+      "                    :: :  : :    : :: ::   : :: : :   :: :: :   : :  :    :      :    : :: ::                   ",
+    ];
+    
+    lines.forEach(function(line) {print(line+"\n", true);});
     print("\n\n\n", true);
 
-    print(padCenter("All graphics are created using CSS, no static files or images\n", 113), true);
+    print(padCenter(_filetree.MOTD.content.match(/.{1,129}/g).join('\n'), 130), true);
 
     print("\n\n\n\n\n", true);
     print("Type 'help' for a list of available commands.\n", true);
