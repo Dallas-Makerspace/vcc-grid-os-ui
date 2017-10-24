@@ -1,0 +1,20 @@
+{
+"manifest_version": 2,
+"name": "VCC Grid OS",
+"description": "Vintage Computer Committee strives to provide a STEM pilot program for learning hands on about the whole computer from hardware to software and networking.",
+"version": "1.1",
+"icons": {
+"128": "computer-svgrepo-com.png"
+},
+"app": {
+"urls": [
+"https://vintage-computer-committee.github.io/"
+],
+"launch": {
+"web_url": "https://vintage-computer-committee.github.io/"
+}
+},
+"permissions": [
+"notifications"
+]
+}
