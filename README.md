@@ -5,6 +5,7 @@ A retro-looking shell using CSS and JavaScript. The design is somewhat inspired 
 
 [See it in action here](http://dmsvintagecomputers.com/)
 
+<span class="badge-patreon"><a href="https://www.patreon.com/bePatron?u=6529492" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-green.svg" alt="Patreon donate button" /></a></span>
 ## About
 
 Vintage Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful             milestones in the evolution of computers, internet, and how people use them. The collection was assembled as a way to            offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole           that harkens back to the days of Community Memory.
