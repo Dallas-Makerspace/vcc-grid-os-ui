@@ -61,8 +61,7 @@
     { 'key': 'Articles', 'value': 'hackaday.io/DMSVintageComputers', 'proto': 'https://' },
     { 'key': 'Github',   'value': 'github.com/Dallas-Makerspace/', 'proto': 'https://' },
     { 'key': 'YouTube',  'value': 'youtube.com/channel/UCp3dIM6FyevEUYbF1EFnzmA', 'proto': 'https://' },
-    { 'key': 'Google+',  'value': 'plus.google.com/100248581855785476356?rel=author', 'proto': 'https://'},
-    { 'key': 'Patreon', 'value': 'patreon.com/DMSVintageComputers', 'proto': 'https://' }
+    { 'key': 'Google+',  'value': 'plus.google.com/100248581855785476356?rel=author', 'proto': 'https://'}
   ];
   
   var contextClass = (window.AudioContext || 
