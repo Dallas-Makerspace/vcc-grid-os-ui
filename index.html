@@ -19,32 +19,31 @@ title: Home
       <div id="led"></div>
     </div>
     <div id="info">
-  		<footer class="noselect">
+      <footer class="noselect">
         <p>&copy;2017 <a rel="self" href="#">Vintage Computer Committee</a>. Somerights reserved. | <a href="/eula">EULA</a> | <a href="/faq">FAQ</a> | <a href="/guidelines">Community Guidelines</a> |</p>
         <p>Thanks goes to Anders Evenrud for his creation of the original template.</p>
-  		</footer>
+      </footer>
     </div>
-		<div class="firebox">
-		<!-- Markup docs: https://janusvr.com/docs/build/introtojml/index.html -->
-			<!--
-			<FireBoxRoom>
-			<Assets>
-			<AssetObject id="sun" src="http://vrsites.com/hosting/assets/qster123/nuketown/sun.obj" />
-			<AssetObject id="ground" src="http://vrsites.com/hosting/assets/qster123/nuketown/ground.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
-			<AssetObject id="buildings" src="http://vrsites.com/hosting/assets/qster123/nuketown/buildings.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
-			<AssetObject id="objects" src="http://vrsites.com/hosting/assets/qster123/nuketown/objects.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
-			</Assets>
-			<Room use_local_asset="room_plane" visible="false" far_dist="1000" walk_speed="2" default_sounds="true" pos="15.1 0.7 0" xdir="0 0 -1" ydir="0 1 0" zdir="1 0 0" shadows="true">
-			<Object id="ground" js_id="0" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" col="0.400 0.400 0.400" collision_id="ground" />
-			<Object id="buildings" js_id="1" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" lighting="false" collision_id="buildings" />
-			<Object id="objects" js_id="2" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" col="0.750 0.750 0.750" lighting="false" shader_id="sun" />
-			<Object id="sun" js_id="3" pos="91.000000 593.000000 295.000000" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="100.000000 100.000000 100.000000" lighting="false" />
-			</Room>
-			</FireBoxRoom>
-			-->
-
-		</div>
-		<script type="text/javascript">
+    <div class="firebox">
+      <!-- Markup docs: https://janusvr.com/docs/build/introtojml/index.html -->
+      <!--
+      <FireBoxRoom>
+	<Assets>
+	  <AssetObject id="sun" src="http://vrsites.com/hosting/assets/qster123/nuketown/sun.obj" />
+	  <AssetObject id="ground" src="http://vrsites.com/hosting/assets/qster123/nuketown/ground.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
+	  <AssetObject id="buildings" src="http://vrsites.com/hosting/assets/qster123/nuketown/buildings.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
+	  <AssetObject id="objects" src="http://vrsites.com/hosting/assets/qster123/nuketown/objects.obj" mtl="http://vrsites.com/hosting/assets/qster123/nuketown/mtl_nuke_town.mtl" />
+	</Assets>
+	<Room use_local_asset="room_plane" visible="false" far_dist="1000" walk_speed="2" default_sounds="true" pos="15.1 0.7 0" xdir="0 0 -1" ydir="0 1 0" zdir="1 0 0" shadows="true">
+	  <Object id="ground" js_id="0" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" col="0.400 0.400 0.400" collision_id="ground" />
+	  <Object id="buildings" js_id="1" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" lighting="false" collision_id="buildings" />
+	  <Object id="objects" js_id="2" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="10.000000 10.000000 10.000000" col="0.750 0.750 0.750" lighting="false" shader_id="sun" />
+	  <Object id="sun" js_id="3" pos="91.000000 593.000000 295.000000" xdir="-1.000 0.000 0.000" zdir="0.000 0.000 -1.000" scale="100.000000 100.000000 100.000000" lighting="false" />
+	</Room>
+      </FireBoxRoom>
+      -->
+    </div>
+    <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '333089688817-p5n17fdqsels4d9416cv1f1pkbelsu0k.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyBGFTMyv1E9gveuNvUqrX3Wy-8iVlS4ZH8';
@@ -156,18 +155,3 @@ title: Home
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-
-
-<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAc-t0GSqYdfjg_o8eiMvOLkGLOTmzwHyA",
-    authDomain: "mobile-app-ddf3b.firebaseapp.com",
-    databaseURL: "https://mobile-app-ddf3b.firebaseio.com",
-    projectId: "mobile-app-ddf3b",
-    storageBucket: "mobile-app-ddf3b.appspot.com",
-    messagingSenderId: "287041396526"
-  };
-  firebase.initializeApp(config);
-</script>
