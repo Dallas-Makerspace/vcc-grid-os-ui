@@ -1,6 +1,7 @@
 /* global requestAnimFrame */
 /* global elation */
 /* global Mousetrap */
+/* global firebase */
 /**
  * AnderShell - Just a small CSS demo
  *
@@ -61,8 +62,7 @@
     { 'key': 'Articles', 'value': 'hackaday.io/DMSVintageComputers', 'proto': 'https://' },
     { 'key': 'Github',   'value': 'github.com/Dallas-Makerspace/', 'proto': 'https://' },
     { 'key': 'YouTube',  'value': 'youtube.com/channel/UCp3dIM6FyevEUYbF1EFnzmA', 'proto': 'https://' },
-    { 'key': 'Google+',  'value': 'plus.google.com/100248581855785476356?rel=author', 'proto': 'https://'},
-    { 'key': 'Patreon', 'value': 'patreon.com/DMSVintageComputers', 'proto': 'https://' }
+    { 'key': 'Google+',  'value': 'plus.google.com/100248581855785476356?rel=author', 'proto': 'https://'}
   ];
   
   var contextClass = (window.AudioContext || 
@@ -498,6 +498,16 @@
     $output.contentEditable = true;
     $output.spellcheck = false;
     $output.value = '';
+    
+          
+    firebase.initializeApp({
+       apiKey: "AIzaSyAc-t0GSqYdfjg_o8eiMvOLkGLOTmzwHyA",
+       authDomain: "mobile-app-ddf3b.firebaseapp.com",
+       databaseURL: "https://mobile-app-ddf3b.firebaseio.com",
+       projectId: "mobile-app-ddf3b",
+       storageBucket: "mobile-app-ddf3b.appspot.com",
+       messagingSenderId: "287041396526"
+    });
 
     $output.onkeydown = function(ev) {
       var k = ev.which || ev.keyCode;
@@ -554,7 +564,7 @@
           _ibuffer.push(kc);
         }
       }
-
+      
       return true;
     };
 
@@ -569,6 +579,8 @@
     window.onfocus = function() {
       update();
     };
+    
+    window.database = firebase.database();
 
     print("Initializing VCC Grid OS 1.0 ....................................................\n");
     print("Copyright (c) 2017 Vintage Computer Committee, Some Rights Reserved.\n\n", true);

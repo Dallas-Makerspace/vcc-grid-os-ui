@@ -1,0 +1,22 @@
+name: VCC Grid OS
+description: VCC Grid OS
+author: Vintage Computer Committee at Dallas Makerspace
+author_email: denzkuo@dallasmakerspace.com
+category_dir: /categories
+baseurl:
+url: http://dmsvintagecomputers.com/
+markdown: rdiscount
+permalink: pretty
+paginate: 3
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules, vendor]
+
+plugins:
+  - algoliasearch-jekyll
+  
+algolia:
+  settings:
+    attributeForDistinct: 'hierarchy'
+    distinct: true
+    attributesToSnippet: ['text:20']
+  excluded_files:
+    - index.html
