@@ -258,19 +258,29 @@
      link.remove();
     },
     
-    login: function() {
-      if (window.elation) {
-        elation.janusweb.init({
-          url: document.location.href,
-           showchat: false,
-           shownavigation: false 
-        }).then(function(client) {
-          document.getElementById("outer").setAttribute("hidden", true);
-          elation.events.add(client.janusweb.currentroom, 'room_load_complete', function() {
-            //client.hideMenu();
-          });
-        });
-      }
+    login: function(opts) {
+        var timeout;
+        window.location = `steam://rungameid/602090//${window.location}`
+
+        timeout = setTimeout( function() {
+          if (window.elation) {
+            elation.janusweb.init({
+              url: document.location.href,
+               showchat: false,
+               shownavigation: false 
+            }).then(function(client) {
+              document.getElementById("outer").setAttribute("hidden", true);
+              elation.events.add(client.janusweb.currentroom, 'room_load_complete', function() {
+                //client.hideMenu();
+              });
+            });
+          }
+        }, 1000);
+
+        window.addEventlListenr('pagehide', function() {
+            timeout = null;
+            window.removeEventlistener('pagehide', this)});
+
     },
 
     help: function() {
