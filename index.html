@@ -1,7 +1,26 @@
----
-layout: default
----
-
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+  <head>
+    <title>VCC Grid OS 1.0</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1.0, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="author" href="https://plus.google.com/100248581855785476356" />
+    <link rel="publisher" href="https://plus.google.com/100248581855785476356" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/png" />
+    <link rel="apple-touch-icon" href="favicon.ico" type="image/png" />
+    <link rel="icon" href="favicon.ico" type="image/png" />	  
+    <meta property="og:title" content="VCC Grid OS 1.0" />
+    <meta property="og:image" content="https://dms-discourse-static.s3.amazonaws.com/original/2X/6/61c66258cfda16c40ceb5ad7968989c88638ef96.png" />
+    <meta property="og:description" content="VCC Computer Committee strives to provide a STEM pilot program for learning hands on about the whole computer from hardware to software and networking. Thus passing on the knowledge and history of computing to the newest generation of 'hackers', makers, and generally anyone interested in computers and the internet before the 'grey beards' knowledge becomes completely lost to us all." />
+    <meta property="og:type" content="website" />
+    <meta property=”og:url” content=”https://vcc.dallasmakerspace.org” />
+    <script type="text/javascript" src="https://web.janusvr.com/1.0.15/janusweb.js"></script>
+    <script type="text/javascript" src="https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?a4098"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
     <header>
        <!--Add buttons to initiate auth sequence and sign out-->
       <button id="authorize-button" style="display: none;">Authorize</button>
@@ -47,3 +66,8 @@ layout: default
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
+    <div id="info">
+      {% include footer.html %}
+    </div>
+  </body>
+</html>
