@@ -43,12 +43,12 @@
   var _lhindex = -1;
 
   var _filetree = {
-    'documents': {type: 'dir', files: {
+    'documents': {type: 'dir', mime: 'inode/directory', files: {
       'README' : {type: 'file', mime: 'text/plain', content: 'All you see here is CSS. No images were used or harmed in creation of this demo'},
       'LICENSE': {type: 'file', mime: 'text/plain', content: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."},
       'allfiles.txt': {type: 'symlink', mime:'inode/simlink', destination: "http://www.textfiles.com/bbs/FILELISTS/allfile1.txt"},
     }},
-    'releases':   {type: 'dir', files: {
+    'releases':   {type: 'dir', mime: 'inode/directory', files: {
       'Amiga-Hardware.webm': {type: 'symlink', mime: 'inode/simlink', destination: 'https://archive.org/download/youtube-BbVAvDbzXFk/The_Ultimate_Amiga_500_Talk_32c3-BbVAvDbzXFk.webm'},
     }},
     'MOTD': {type: 'file', mime: 'text/plain', content: "VCC Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful             milestones in the evolution of computers, internet, and how people use them. The collection was assembled as a way to offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole that harkens back to the days of Community Memory."},

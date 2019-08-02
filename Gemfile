@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-gem "jekyll", ">= 3.6.3"
-gem 'rdiscount','~> 2.2.0'
+#gem "jekyll"
+gem 'rdiscount'
 
 group :jekyll_plugins do
-  gem 'algoliasearch-jekyll', '~> 0.9.0'
+  gem 'algoliasearch-jekyll'
   gem 'jekyll-paginate'
+  gem 'github-pages'
 end
