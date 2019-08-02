@@ -49,10 +49,10 @@
       'allfiles.txt': {type: 'symlink', mime:'inode/simlink', destination: "http://www.textfiles.com/bbs/FILELISTS/allfile1.txt"},
     }},
     'releases':   {type: 'dir', files: {
-      'Amiga-Hardware.webm': {type: 'symlink', mime: 'inode/simplink', destination: 'https://archive.org/download/youtube-BbVAvDbzXFk/The_Ultimate_Amiga_500_Talk_32c3-BbVAvDbzXFk.webm'},
+      'Amiga-Hardware.webm': {type: 'symlink', mime: 'inode/simlink', destination: 'https://archive.org/download/youtube-BbVAvDbzXFk/The_Ultimate_Amiga_500_Talk_32c3-BbVAvDbzXFk.webm'},
     }},
-    'MOTD': {type: 'file', mime: 'text/plain', content: "VCC Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful             milestones in the evolution of computers, internet, and how people use them. The collection was assembled as a way to            offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole           that harkens back to the days of Community Memory."},
-    'GPGKEY': {type: 'symlink', mime: 'inode/simplink', destination: 'https://keybase.io/denzuko/pgp_keys.asc?fingerprint=e9bf4915a4ceacb4f72ae65ae704b37bc7fbf426'},
+    'MOTD': {type: 'file', mime: 'text/plain', content: "VCC Computer Committee presents the Interactive Computer Museum, a live interactive experience of the meaningful             milestones in the evolution of computers, internet, and how people use them. The collection was assembled as a way to offer interactive learning pieces members of the space to play with and exprence the growth of the internet as a whole that harkens back to the days of Community Memory."},
+    'GPGKEY': {type: 'symlink', mime: 'inode/simlink', destination: 'https://keybase.io/denzuko/pgp_keys.asc?fingerprint=e9bf4915a4ceacb4f72ae65ae704b37bc7fbf426'},
   };
   
   var _finger = [
@@ -226,6 +226,18 @@
       link.click();
       link.remove();
     },
+
+    stat: function(file) {
+        if (!file) return(["You need to supply argument: filename"]).join("\n");
+
+        var filename = parsepath(file),
+            iter     = getiter(filename);
+
+        if (!iter) return (["File not found: " + filename]).join("\n");
+
+        return `${file}: ${iter.mime}`
+
+    },
     
     xmodem: function(file) {
      if (!file)  return(["You need to supply argument: filename"]).join("\n");
@@ -272,6 +284,7 @@
         'cat <filename>                               Show file contents',
         'sound [<volume 0-100>, <duration>, <freq>]   Generate a sound (WebKit only)',
         'xmodem <filename>                            File transfer tool',
+        'stat <filename>                              Display file status',
         'login                                        Jack into the matrix',
         ''
       ];
@@ -604,7 +617,7 @@
 
     print(padCenter(_filetree.MOTD.content.match(/.{1,129}/g).join('\n'), 130), true);
 
-    print("\n\n\n\n\n", true);
+    print("\n\n\n", true);
     print("Type 'help' for a list of available commands.\n", true);
     print("\n\n" + _prompt());
 
