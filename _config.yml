@@ -1,10 +1,10 @@
 name: VCC Grid OS
 description: VCC Grid OS
-author: Vintage Computer Committee at Dallas Makerspace
-author_email: denzkuo@dallasmakerspace.com
+author: VCC Computer Committee at Dallas Makerspace
+author_email: vcc@dallasmakerspace.com
 category_dir: /categories
 baseurl:
-url: http://dmsvintagecomputers.com/
+url: http://vcc.dallasmakerspace.org/
 markdown: rdiscount
 permalink: pretty
 paginate: 3
