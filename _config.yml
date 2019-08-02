@@ -12,7 +12,8 @@ exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffe
 
 plugins:
   - algoliasearch-jekyll
-  
+  - jekyll-paginate
+
 algolia:
   settings:
     attributeForDistinct: 'hierarchy'
